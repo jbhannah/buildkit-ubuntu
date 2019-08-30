@@ -11,7 +11,8 @@ set -eu
 : ${BUILDCTL=_buildctl}
 : ${BUILDKITD=buildkitd}
 : ${BUILDKITD_FLAGS=}
-: ${ROOTLESSKIT=rootlesskit}
+: ${ROOTLESSKIT=sudo}
+: ${XDG_RUNTIME_DIR=/run}
 
 # $tmp holds the following files:
 # * pid
