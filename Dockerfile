@@ -13,4 +13,3 @@ COPY --from=curl /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificat
 COPY --from=curl /usr/bin/buildkit-runc /usr/bin/buildkitd /usr/bin/
 COPY --from=curl /usr/bin/buildctl /usr/bin/_buildctl
 COPY ./bin/buildctl-daemonless.sh /usr/bin/buildctl
-COPY ./bin/sanitize-cgroups /usr/bin/sanitize-cgroups
