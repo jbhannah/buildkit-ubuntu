@@ -51,7 +51,7 @@ waitForBuildkitd() {
 	done
 }
 
-su -c sanitize-cgroups
+sudo sanitize-cgroups
 startBuildkitd
 waitForBuildkitd
 $BUILDCTL --addr=$(cat $tmp/addr) $@
