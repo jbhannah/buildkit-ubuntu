@@ -13,7 +13,7 @@ set -eu
 : ${BUILDKITD_FLAGS=}
 
 if [ $(id -u) != 0 ]; then
-	exec sudo "$0" "$@"
+  exec sudo "$0" "$@"
 fi
 
 # $tmp holds the following files:
@@ -69,27 +69,27 @@ sanitizeCgroups() {
 }
 
 startBuildkitd() {
-	addr=unix:///run/buildkit/buildkitd.sock
-	$BUILDKITD $BUILDKITD_FLAGS --addr=$addr >$tmp/log 2>&1 &
-	pid=$!
-	echo $pid >$tmp/pid
-	echo $addr >$tmp/addr
+  addr=unix:///run/buildkit/buildkitd.sock
+  $BUILDKITD $BUILDKITD_FLAGS --addr=$addr >$tmp/log 2>&1 &
+  pid=$!
+  echo $pid >$tmp/pid
+  echo $addr >$tmp/addr
 }
 
 # buildkitd supports NOTIFY_SOCKET but as far as we know, there is no easy way
 # to wait for NOTIFY_SOCKET activation using busybox-builtin commands...
 waitForBuildkitd() {
-	addr=$(cat $tmp/addr)
-	try=0
-	max=10
-	until $BUILDCTL --addr=$addr debug workers >/dev/null 2>&1; do
-		if [ $try -gt $max ]; then
-			echo >&2 "could not connect to $addr after $max trials"
-			exit 1
-		fi
-		sleep $(awk "BEGIN{print (100 + $try * 20) * 0.001}")
-		try=$(expr $try + 1)
-	done
+  addr=$(cat $tmp/addr)
+  try=0
+  max=10
+  until $BUILDCTL --addr=$addr debug workers >/dev/null 2>&1; do
+    if [ $try -gt $max ]; then
+      echo >&2 "could not connect to $addr after $max trials"
+      exit 1
+    fi
+    sleep $(awk "BEGIN{print (100 + $try * 20) * 0.001}")
+    try=$(expr $try + 1)
+  done
 }
 
 sanitizeCgroups
