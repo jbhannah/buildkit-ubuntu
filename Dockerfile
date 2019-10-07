@@ -1,5 +1,5 @@
 FROM ubuntu:18.04 AS curl
-ARG BUILDKIT_VERSION=v0.6.1
+ARG BUILDKIT_VERSION=v0.6.2
 
 RUN apt-get update \
     && apt-get install -y curl ca-certificates \
