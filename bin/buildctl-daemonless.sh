@@ -81,7 +81,7 @@ startBuildkitd() {
 waitForBuildkitd() {
   addr=$(cat $tmp/addr)
   try=0
-  max=10
+  max=100
   until $BUILDCTL --addr=$addr debug workers >/dev/null 2>&1; do
     if [ $try -gt $max ]; then
       echo >&2 "could not connect to $addr after $max trials"
